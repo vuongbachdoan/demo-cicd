@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+      - docker build -t vuongbach/cicd-demo .
+      - docker tag vuongbach/cicd-demo:latest 575108955981.dkr.ecr.us-west-2.amazonaws.com/vuongbach/cicd-demo:latest
+  post_build:
+    commands:
+      - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 575108955981.dkr.ecr.us-west-2.amazonaws.com
+      - docker push 575108955981.dkr.ecr.us-west-2.amazonaws.com/vuongbach/cicd-demo:latest
+artifacts:
+  files:
+    - '**/*'
+    - appspec.yml
+    - scripts/**/*  # Include all the deployment scripts
