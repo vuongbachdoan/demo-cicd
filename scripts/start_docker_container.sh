@@ -12,4 +12,4 @@ if [ $(docker ps -q -f name=cicd-demo) ]; then
 fi
 
 # Run the Docker container
-docker run -d --name cicd-demo -p 3000:3000 575108955981.dkr.ecr.us-west-2.amazonaws.com/vuongbach/cicd-demo:latest
+docker run -d -p 3000:3000 575108955981.dkr.ecr.us-west-2.amazonaws.com/vuongbach/cicd-demo:latest
