@@ -9,7 +9,7 @@ phases:
   build:
     commands:
       - npm run build
-      - docker build -t vuongbach/cicd-demo .
+      - docker build --no-cache -t vuongbach/cicd-demo .
       - docker tag vuongbach/cicd-demo:latest 575108955981.dkr.ecr.us-west-2.amazonaws.com/vuongbach/cicd-demo:latest
   post_build:
     commands:
