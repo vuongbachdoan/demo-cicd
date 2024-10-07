@@ -3,13 +3,9 @@
 # Log in to ECR
 aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 575108955981.dkr.ecr.us-west-2.amazonaws.com
 
-# Check if the container is already running
-if [ $(docker ps -q -f name=cicd-demo) ]; then
-    echo "Stopping existing container..."
-    docker stop cicd-demo
-    echo "Removing existing container..."
-    docker rm cicd-demo
-fi
+docker stop cicd-demo
 
-# Run the Docker container
-docker run -d -p 3000:80 575108955981.dkr.ecr.us-west-2.amazonaws.com/vuongbach/cicd-demo:latest
+docker rm cicd-demo
+
+docker run -d -p 3000:80 --name cicd-demo 575108955981.dkr.ecr.us-west-2.amazonaws.com/vuongbach/cicd-demo:latest
+
